@@ -1,5 +1,5 @@
 import '@webcomponents/shadydom';
-export default class Component {
+export default class RootComponent {
   constructor(config) {
     this.config = config;
     this.target = document.getElementsByTagName(config.tagName);
