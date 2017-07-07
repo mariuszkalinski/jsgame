@@ -6,11 +6,6 @@ const StyleExtHtmlWebpackPlugin = require('style-ext-html-webpack-plugin');
 const babelPresets = require('babel-preset-es2015');
 const autoprefixer = require('autoprefixer');
 
-const extractSass = new ExtractTextPlugin({
-    filename: "[name].[contenthash].css",
-    disable: process.env.NODE_ENV === "development"
-});
-
 const config = {
   entry: {
     app: path.resolve(__dirname, 'app/index.js'),
@@ -43,50 +38,69 @@ const config = {
         ],
         exclude: /node_modules/,
       },
-      // {
-      //   test: /\.scss$/,
-      //   use: ExtractTextPlugin.extract({
-      //     fallback: 'style-loader',
-      //     use: [
-      //       'css-loader',
-      //       'resolve-url-loader',
-      //       {
-      //         loader: 'postcss-loader',
-      //         options: {
-      //           plugins() {
-      //             return [autoprefixer];
-      //           },
-      //         },
-      //       },
-      //       {
-      //         loader: 'sass-loader',
-      //         options: {
-      //           sourceMap: true,
-      //           // includePaths: ['absolute/path/a', 'absolute/path/b'] path for styles
-      //         },
-      //       },
-      //       {
-      //         loader: 'sass-resources-loader',
-      //         options: {
-      //           resources: ['./app/styles/_variables.scss'],
-      //         },
-      //       },
-      //       'raw-loader',
-      //     ],
-      //   }),
-      // },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            'css-loader',
+            'resolve-url-loader',
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins() {
+                  return [autoprefixer];
+                },
+              },
+            },
+          ],
+        }),
+      },      
       {
         test: /\.scss$/,
-        use: extractSass.extract({
-            use: [{
-                loader: "css-loader"
-            }, {
-                loader: "sass-loader"
-            }],
-            // use style-loader in development
-            fallback: "style-loader"
-        })
-      },     
+        // use: ExtractTextPlugin.extract({
+        //   fallback: 'style-loader',
+          use: [
+            'css-loader',
+            'resolve-url-loader',
+            {
+              loader: 'postcss-loader',
+              options: {
+                insertInto: '#host::shadow>#root',
+                plugins() {
+                  return [autoprefixer];
+                },
+              },
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true,
+                // includePaths: ['absolute/path/a', 'absolute/path/b'] path for styles
+              },
+            },
+            // 'raw-loader',
+            // {
+            //   loader: 'sass-resources-loader',
+            //   options: {
+            //     resources: ['./app/styles/_variables.scss'],
+            //   },
+            // },
+          ],
+        // }),
+      },
+      // {
+      //   test: /\.scss$/,
+      //   use: extractSass.extract({
+      //       use: [{
+      //           loader: "css-loader"
+      //       }, {
+      //           loader: "sass-loader"
+      //       }],
+      //       // use style-loader in development
+      //       fallback: "style-loader"
+      //   })
+      // },     
       {
         test: /\.ttf$|\.eot|\.woff|\.woff2$/,
         loader: 'file-loader',
@@ -114,11 +128,11 @@ const config = {
 
   },
   plugins: [
-    new ExtractTextPlugin({
-      filename: `css/[name].css`,
-      allChunks: true,
-      disable: true,
-    }),    
+    // new ExtractTextPlugin({
+    //   filename: `css/[name].css`,
+    //   allChunks: true,
+    //   disable: false,
+    // }),    
     new HtmlWebpackPlugin({
       template: 'index.html',
       inject: 'body',

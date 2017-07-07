@@ -1,8 +1,12 @@
 import Component from './core/component';
-const styles = require('./styles.scss');
-console.log(styles);
+
+import styles from './styles.useable.scss';
+
 const thing = new Component({
   tagName: 'app-init',
-  template: '<p><span>!</span>siema Modeczko</p>',
+  template: `
+    <p><span>!</span>Hello shadowDom</p>
+    <grid></grid>
+  `,
   styles: styles,
 });
