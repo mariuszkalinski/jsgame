@@ -8,57 +8,63 @@ export default new Component({
   `,
   styles,
   controller: (scope) => {
-    const gridSize = [600, 600];
+    const gridSize = { x: 600, y: 600};
     const playerSize = 50;
-    const gridBoxes = [gridSize[0] / playerSize, gridSize[1] / playerSize];
-    let playerPosition = [0, 0];
+    const gridBoxes = {x: gridSize.x / playerSize, y: gridSize.y / playerSize};
+    let playerPosition = {x: 0, y: 0};
 
     const target = scope.target;
     target.style.width = playerSize;
     target.style.height = playerSize;
     const range = 1;
     const goRight = () => {
-      if (playerPosition[0] < gridBoxes[0] - 1) {
-        playerPosition[0] += range;
-        target.style.left = playerPosition[0] * playerSize;
+      if (playerPosition.x < gridBoxes.x - 1) {
+        playerPosition.x += range;
+        target.style.left = playerPosition.x * playerSize;
       }
     }
     const goLeft = () => {
-      if (playerPosition[0] > 0) {
-        playerPosition[0] -= range;
-        target.style.left = playerPosition[0] * playerSize;
+      if (playerPosition.x > 0) {
+        playerPosition.x -= range;
+        target.style.left = playerPosition.x * playerSize;
       }
     }
     const goUp = () => {
-      if (playerPosition[1] > 0) {
-        playerPosition[1] -= range;
-        target.style.top = playerPosition[1] * playerSize;
+      if (playerPosition.y > 0) {
+        playerPosition.y -= range;
+        target.style.top = playerPosition.y * playerSize;
       }
     }
     const goDown = () => {
-      if (playerPosition[1] < gridBoxes[1] - 1) {
-        playerPosition[1] += range;
-        target.style.top = playerPosition[1] * playerSize;
+      if (playerPosition.y < gridBoxes.y - 1) {
+        playerPosition.y += range;
+        target.style.top = playerPosition.y * playerSize;
       }
     }
-    const source = Rx.Observable.fromEvent(document, 'keydown');
-    const subscribe = source.subscribe(event => {
-      switch (event.key) {
-        case 'ArrowUp':
-          goUp();
-          break;
-        case 'ArrowDown':
-          goDown();
-          break;
-        case 'ArrowLeft':
-          goLeft();
-          break;
-        case 'ArrowRight':
-          goRight();
-          break;
-        default:
-          break;
-      }
-    });
+    // const source = Rx.Observable.fromEvent(document, 'keydown');
+    // const subscribe = source.subscribe(event => {
+    //   switch (event.key) {
+    //     case 'ArrowUp':
+    //       goUp();
+    //       break;
+    //     case 'ArrowDown':
+    //       goDown();
+    //       break;
+    //     case 'ArrowLeft':
+    //       goLeft();
+    //       break;
+    //     case 'ArrowRight':
+    //       goRight();
+    //       break;
+    //     default:
+    //       break;
+    //   }
+    // });
+    const left = Rx.Observable.fromEvent(document, 'keydown')
+      .filter(event => event.key === 'ArrowLeft')
+      .subscribe(x => goLeft());
+    const right = Rx.Observable.fromEvent(document, 'keydown')
+      .filter(event => event.key === 'ArrowRight')
+      .subscribe(x => goRight());      
   }
 });
