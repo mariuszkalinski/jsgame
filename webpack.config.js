@@ -21,21 +21,19 @@ const config = {
     port: 3000,
     historyApiFallback: true,
   },
+  devtool: 'source-map',
   // devtool: DEVELOP ? 'inline-source-map' : '',
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.js$/,
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              compact: true,
-              presets: ['es2015'],
-              plugins: ['transform-runtime'],
-            },
+        use: [{
+          loader: 'babel-loader',
+          options: {
+            compact: true,
+            presets: ['es2015'],
+            plugins: ['transform-runtime'],
           },
-        ],
+        }, ],
         exclude: /node_modules/,
       },
       {
@@ -55,38 +53,38 @@ const config = {
             },
           ],
         }),
-      },      
+      },
       {
         test: /\.scss$/,
         // use: ExtractTextPlugin.extract({
         //   fallback: 'style-loader',
-          use: [
-            'css-loader',
-            'resolve-url-loader',
-            {
-              loader: 'postcss-loader',
-              options: {
-                insertInto: '#host::shadow>#root',
-                plugins() {
-                  return [autoprefixer];
-                },
+        use: [
+          'css-loader',
+          'resolve-url-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              insertInto: '#host::shadow>#root',
+              plugins() {
+                return [autoprefixer];
               },
             },
-            {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: true,
-                // includePaths: ['absolute/path/a', 'absolute/path/b'] path for styles
-              },
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+              // includePaths: ['absolute/path/a', 'absolute/path/b'] path for styles
             },
-            // 'raw-loader',
-            // {
-            //   loader: 'sass-resources-loader',
-            //   options: {
-            //     resources: ['./app/styles/_variables.scss'],
-            //   },
-            // },
-          ],
+          },
+          // 'raw-loader',
+          // {
+          //   loader: 'sass-resources-loader',
+          //   options: {
+          //     resources: ['./app/styles/_variables.scss'],
+          //   },
+          // },
+        ],
         // }),
       },
       // {
@@ -123,7 +121,7 @@ const config = {
         //   removeComments: !DEVELOP,
         //   collapseWhitespace: !DEVELOP,
         // },
-      },      
+      },
     ],
 
   },
