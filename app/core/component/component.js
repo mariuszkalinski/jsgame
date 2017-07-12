@@ -9,7 +9,6 @@ export default class Component {
   }
 
   insertInDom() {
-    console.log(this.target);
     this.target.attachShadow({
         mode: 'open'
       })
