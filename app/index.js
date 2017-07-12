@@ -5,7 +5,9 @@ import {
   combineReducers
 } from 'redux';
 import root from './components/root/root';
+import tree from './components/tree/tree';
 import player from './components/player/player';
+
 import playerState from './reducers/player.reducer';
 
 const rootReducer = combineReducers({
