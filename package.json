@@ -46,6 +46,7 @@
     "webpack-dev-server": "^2.5.0"
   },
   "dependencies": {
+    "redux": "^3.7.1",
     "rxjs": "^5.4.2"
   }
 }

@@ -1,7 +1,11 @@
 import Rx from 'rxjs';
 import Component from '../../core/component/component';
 import styles from './player.scss';
-import {config} from '../../gameConfig/gameConfig';
+import {
+  config
+} from '../../gameConfig/gameConfig';
+import move from '../../actions/player.actions';
+import store from '../../index';
 export default new Component({
   tagName: 'base-player',
   template: `
@@ -9,11 +13,6 @@ export default new Component({
   `,
   styles,
   controller: (scope) => {
-
-    let playerPosition = {
-      x: 0,
-      y: 0
-    };
     const gridBoxes = {
       x: config.gridSize.x / config.playerSize,
       y: config.gridSize.y / config.playerSize
@@ -21,26 +20,30 @@ export default new Component({
     const target = scope.target;
     target.style.width = config.playerSize;
     target.style.height = config.playerSize;
-    const range = 1;
+    const collision = (key) => {
+      const playerPosition = store.getState().playerState;
+      switch (key) {
+        case 'ArrowLeft':
+          return playerPosition.x > 0;
+        case 'ArrowUp':
+          return playerPosition.y > 0;
+        case 'ArrowRight':
+          return playerPosition.x < gridBoxes.x - 1;
+        case 'ArrowDown':
+          return playerPosition.y < gridBoxes.y - 1;
+        default:
+          return false;
+      }
 
-    const move = (property, direction, condition) => {
-      playerPosition[property] = condition === 'increase' ? playerPosition[property] + range : playerPosition[property] - range;
-      target.style[direction] = playerPosition[property] * config.playerSize;
-      return playerPosition;
     }
-    const left = Rx.Observable.fromEvent(document, 'keydown')
-      .filter(event => event.key === 'ArrowLeft' && playerPosition.x > 0)
-      .map(x => move('x', 'left', 'decrease'));
-    const right = Rx.Observable.fromEvent(document, 'keydown')
-      .filter(event => {console.log(config); return event.key === 'ArrowRight' && playerPosition.x < gridBoxes.x - 1})
-      .map(x => move('x', 'left', 'increase'));
-    const top = Rx.Observable.fromEvent(document, 'keydown')
-      .filter(event => event.key === 'ArrowUp' && playerPosition.y > 0)
-      .map(x => move('y', 'top', 'decrease'));
-    const bottom = Rx.Observable.fromEvent(document, 'keydown')
-      .filter(event => event.key === 'ArrowDown' && playerPosition.y < gridBoxes.y - 1)
-      .map(x => move('y', 'top', 'increase'));
-    const merged = left.merge(right, top, bottom)
-      .subscribe(x => console.log(x));
+    const playerStream = Rx.Observable.fromEvent(document, 'keydown')
+      .takeWhile(event => (event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'ArrowUp' || event.key === 'ArrowDown'))
+      .filter(event => collision(event.key))
+      .map(event => store.dispatch(move(event.key)))
+      .map(event => store.getState().playerState)
+      .subscribe(position => {
+        target.style.left = position.x * config.playerSize;
+        target.style.top = position.y * config.playerSize;
+      });
   }
 });
