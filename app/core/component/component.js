@@ -1,4 +1,5 @@
 import '@webcomponents/shadydom';
+
 export default class Component {
   constructor(config) {
     this.config = config;
@@ -10,9 +11,8 @@ export default class Component {
 
   insertInDom() {
     this.target.attachShadow({
-        mode: 'open'
-      })
+      mode: 'open',
+    })
       .innerHTML = `${this.config.template}<style>${this.config.styles ? this.config.styles : ''}</style>`;
   }
-
 }

@@ -1,0 +1,35 @@
+{
+  "extends": "airbnb-base",
+  "env": {
+    "browser": true,
+    "node": true,
+    "mocha": true
+  },
+  "rules": {
+    "no-debugger": 1,
+    "no-param-reassign": 0,
+    "no-underscore-dangle": 0,
+    "class-methods-use-this": 0,
+    "linebreak-style": "off",
+    "max-len": ["error", 130, 2, {
+      "ignoreUrls": true,
+      "ignoreComments": false,
+    }],
+    "no-confusing-arrow": ["error", {
+      "allowParens": true,
+    }],
+    "import/no-extraneous-dependencies": ["error", {
+      "devDependencies": true,
+    }],
+  },
+  "globals": {
+    "DEBUG": true,
+    "API_URL": true,
+    "GOOGLE_MAPS_API_KEY": true,
+    "TERMS_AND_CONDITIONS_URL": true,
+    "MAILCHIMP_URL": true,
+    "SITE_URL": true,
+    "APP_CONFIG": true,
+    "NODE_ENV": true,
+  }
+}

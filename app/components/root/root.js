@@ -1,7 +1,7 @@
 import RootComponent from '../../core/component/root';
 import styles from '../../styles.useable.scss';
 
-let template = `
+const template = `
     <base-player>
     </base-player>
     <base-tree>
@@ -13,7 +13,7 @@ const grid = new RootComponent({
   template,
   styles,
 });
-
+export default grid;
 // import RootComponent from '../../core/component/root';
 // import styles from '../../styles.useable.scss';
 
