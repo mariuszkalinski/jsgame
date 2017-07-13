@@ -1,10 +1,16 @@
 const config = {
   gridSize: {
-    x: 600,
-    y: 600,
+    x: 1920,
+    y: 900,
   },
   playerSize: 30,
   range: 1,
   treesAmount: 200,
+  treesTypes: [
+    'birch',
+    'oak',
+    'palmtree',
+    'pine',
+  ],
 };
 export default config;

@@ -1,7 +1,22 @@
 :host {
   display: inline-block;
   position: absolute;
-  background-image: url(./assets/sprite.png);
-  background-position: 6px 257px;
   background-size: 172px auto;
+  background-image: url(./assets/sprite.png);
+}
+:host(.birch) {
+  background-position: 6px 257px;
+  background-size: 172px auto;  
+}
+:host(.oak) {
+  background-position: 92px 258px;
+  background-size: 172px auto;
+}
+:host(.palmtree) {
+  background-position: 93px 321px;
+  background-size: 172px auto;
+}
+:host(.pine) {
+  background-position: -27px -117px;
+  background-size: 153px auto;
 }

@@ -4,7 +4,7 @@ import { CREATE_TREE } from '../constants/constants';
 
 const maxBoardSize = {
   x: config.gridSize.x / config.playerSize,
-  y: config.gridSize.x / config.playerSize,
+  y: config.gridSize.y / config.playerSize,
 };
 
 const initialState = () => {
