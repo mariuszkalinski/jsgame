@@ -21,15 +21,20 @@ export default new Component({
     target.style.height = config.playerSize;
     const collision = (key) => {
       const playerPosition = store.getState().playerState;
+      const doesItTouchRightEdge = playerPosition.x < gridBoxes.x - 1;
+      const doesItTouchLeftEdge = playerPosition.x > 0;
+      const doesItTouchTopEdge = playerPosition.y > 0;
+      const doesItTouchBottomEdge = playerPosition.y < gridBoxes.y - 1;
+
       switch (key) {
         case 'ArrowLeft':
-          return playerPosition.x > 0;
+          return doesItTouchLeftEdge;
         case 'ArrowUp':
-          return playerPosition.y > 0;
+          return doesItTouchTopEdge;
         case 'ArrowRight':
-          return playerPosition.x < gridBoxes.x - 1;
+          return doesItTouchRightEdge;
         case 'ArrowDown':
-          return playerPosition.y < gridBoxes.y - 1;
+          return doesItTouchBottomEdge;
         default:
           return false;
       }
