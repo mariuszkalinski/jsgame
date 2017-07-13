@@ -7,11 +7,11 @@ export default class Root extends HTMLElement {
     shadowRoot.innerHTML = `
     <base-player>
     </base-player>
-    <base-tree>
+    <base-tree left="2" top="2">
     </base-tree>
-      <style>
-        ${styles}
-      </style>
+    <style>
+      ${styles}
+    </style>
     `;
     this.generateTrees();
   }
