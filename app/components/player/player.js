@@ -16,6 +16,9 @@ export default class Player extends HTMLElement {
     `;
     this.controller();
   }
+  addClass(key) {
+    this.className = key;
+  }
   controller() {
     const gridBoxes = {
       x: config.gridSize.x / config.playerSize,
@@ -71,6 +74,7 @@ export default class Player extends HTMLElement {
         const isArrowDown = event.key === 'ArrowDown';
         return (isArrowLeft || isArrowRight || isArrowUp || isArrowDown) && collision(event.key);
       })
+      .do(val => this.addClass(val.key))
       .map(event => store.dispatch(move(event.key)))
       .map(() => store.getState().playerState)
       .subscribe((position) => {

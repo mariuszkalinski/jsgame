@@ -1,6 +1,20 @@
 :host {
-  background: red;
   display: inline-block;
   position: absolute;
-  transition: 0.4s all;
+  background-size: 109px auto;
+  background-image: url(./assets/player-sprite.png);
+  background-position: 2px -1px;
+  transition: 0.3s top, 0.3s left;
+}
+:host(.ArrowUp) {
+  background-position: 2px 173px;
+}
+:host(.ArrowDown) {
+  background-position: 2px -1px;
+}
+:host(.ArrowLeft) {
+  background-position: -25px -74px;
+}
+:host(.ArrowRight) {
+  background-position: -26px -38px;
 }
