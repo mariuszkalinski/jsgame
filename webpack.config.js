@@ -34,7 +34,7 @@ const config = {
           plugins: ['transform-runtime'],
         },
       },
-      'eslint-loader',
+      // 'eslint-loader',
       ],
       exclude: /node_modules/,
     },

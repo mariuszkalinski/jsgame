@@ -1,5 +1,3 @@
-import '@webcomponents/shadydom';
-
 export default class RootComponent {
   constructor(config) {
     this.config = config;

@@ -1,5 +1,3 @@
-import '@webcomponents/shadydom';
-
 export default class Component {
   constructor(config) {
     this.config = config;
@@ -16,3 +14,12 @@ export default class Component {
       .innerHTML = `${this.config.template}<style>${this.config.styles ? this.config.styles : ''}</style>`;
   }
 }
+// export default class Component extends HTMLElement {
+//   constructor(config) {
+//     super();
+//     this.config = config;
+//     const shadowRoot = this.attachShadow({ mode: 'open' });
+//     if (this.config.controller) this.config.controller(this);
+//     shadowRoot.innerHTML = `${this.config.template}<style>${this.config.styles ? this.config.styles : ''}</style>`;
+//   }
+// }

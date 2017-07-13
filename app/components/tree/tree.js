@@ -1,15 +1,21 @@
-import Component from '../../core/component/component';
+
 import styles from './tree.scss';
 import config from '../../gameConfig/gameConfig';
 
-export default new Component({
-  tagName: 'base-tree',
-  template: `<div>
-  </div>`,
-  styles,
-  controller: (scope) => {
-    const target = scope.target;
-    target.style.width = config.playerSize;
-    target.style.height = config.playerSize;
-  },
-});
+export default class Tree extends HTMLElement {
+  constructor() {
+    super();
+    const shadowRoot = this.attachShadow({ mode: 'open' });
+    shadowRoot.innerHTML = `
+      <style>
+        ${styles}
+      </style>
+      <div></div>
+    `;
+    this.setSize();
+  }
+  setSize() {
+    this.style.width = config.playerSize;
+    this.style.height = config.playerSize;
+  }
+}

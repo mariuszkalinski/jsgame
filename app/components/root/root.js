@@ -1,32 +1,22 @@
-import RootComponent from '../../core/component/root';
 import styles from '../../styles.useable.scss';
 
-const template = `
+export default class Root extends HTMLElement {
+  constructor() {
+    super();
+    const shadowRoot = this.attachShadow({ mode: 'open' });
+    shadowRoot.innerHTML = `
     <base-player>
     </base-player>
     <base-tree>
-    </base-tree>    
-  `;
-
-const grid = new RootComponent({
-  tagName: 'root-component',
-  template,
-  styles,
-});
-export default grid;
-// import RootComponent from '../../core/component/root';
-// import styles from '../../styles.useable.scss';
-
-
-// const generateRootComponents = () => {
-//   return `
-//     <base-player><\base-player>
-//     <base-tree><\base-tree>
-//   `;
-// }
-// const grid = new RootComponent({
-//   tagName: 'root-component',
-//   template: generateRootComponents(),
-//   styles: styles,
-// });
-// import tree from '../tree/tree';
+    </base-tree>
+      <style>
+        ${styles}
+      </style>
+    `;
+    this.generateTrees();
+  }
+  generateTrees() {
+    const tree = document.createElement('base-tree');
+    this.appendChild(tree);
+  }
+}
