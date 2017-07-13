@@ -5,5 +5,6 @@ const config = {
   },
   playerSize: 30,
   range: 1,
+  treesAmount: 200,
 };
 export default config;

@@ -61,7 +61,7 @@ const config = {
       // use: ExtractTextPlugin.extract({
       //   fallback: 'style-loader',
       use: [
-        'css-loader',
+        'css-loader?url=false',
         'resolve-url-loader',
         {
           loader: 'postcss-loader',
