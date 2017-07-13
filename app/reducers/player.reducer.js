@@ -1,5 +1,5 @@
 import config from '../gameConfig/gameConfig';
-import PLAYER_MOVE from '../constants/constants';
+import { PLAYER_MOVE } from '../constants/constants';
 
 export default function player(state = {
   x: 0,

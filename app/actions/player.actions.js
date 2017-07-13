@@ -1,4 +1,4 @@
-import PLAYER_MOVE from '../constants/constants';
+import { PLAYER_MOVE } from '../constants/constants';
 
 const move = value => ({
   type: PLAYER_MOVE,

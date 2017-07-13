@@ -25,11 +25,30 @@ export default class Player extends HTMLElement {
     this.style.height = config.playerSize;
     const collision = (key) => {
       const playerPosition = store.getState().playerState;
+      const treesPosition = store.getState().treeState;
+      const checkIfTreesPositionColideWithPlayer = (arrow) => {
+        const doPlayerColideWithTree = (tree) => {
+          switch (arrow) {
+            case 'ArrowLeft':
+              return tree.x === playerPosition.x - 1 && tree.y === playerPosition.y;
+            case 'ArrowUp':
+              return tree.x === playerPosition.x && tree.y === playerPosition.y - 1;
+            case 'ArrowRight':
+              return tree.x === playerPosition.x + 1 && tree.y === playerPosition.y;
+            case 'ArrowDown':
+              return tree.x === playerPosition.x && tree.y === playerPosition.y + 1;
+            default:
+          }
+        };
+        return treesPosition
+          .some(tree => doPlayerColideWithTree(tree));
+      };
+
       const doesItTouchRightEdge = playerPosition.x < gridBoxes.x - 1;
       const doesItTouchLeftEdge = playerPosition.x > 0;
       const doesItTouchTopEdge = playerPosition.y > 0;
       const doesItTouchBottomEdge = playerPosition.y < gridBoxes.y - 1;
-
+      if (checkIfTreesPositionColideWithPlayer(key)) return;
       switch (key) {
         case 'ArrowLeft':
           return doesItTouchLeftEdge;

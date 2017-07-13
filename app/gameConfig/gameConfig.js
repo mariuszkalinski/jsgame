@@ -3,7 +3,7 @@ const config = {
     x: 600,
     y: 600,
   },
-  playerSize: 10,
+  playerSize: 30,
   range: 1,
 };
 export default config;

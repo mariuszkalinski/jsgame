@@ -1,2 +1,3 @@
-const PLAYER_MOVE = 'PLAYER_MOVE';
-export default PLAYER_MOVE;
+export const PLAYER_MOVE = 'PLAYER_MOVE';
+export const CREATE_TREE = 'CREATE_TREE';
+
