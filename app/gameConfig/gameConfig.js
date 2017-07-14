@@ -5,6 +5,7 @@ const config = {
   },
   playerSize: 30,
   range: 1,
+  treasuresAmount: 10,
   treesAmount: 200,
   treesTypes: [
     'birch',

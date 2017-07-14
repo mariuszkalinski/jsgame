@@ -1,6 +1,3 @@
-import '@webcomponents/shadydom';
-import '@webcomponents/custom-elements/src/native-shim';
-
 import styles from './tree.scss';
 import config from '../../gameConfig/gameConfig';
 
