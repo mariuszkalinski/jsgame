@@ -3,6 +3,7 @@ import styles from './player.scss';
 import config from '../../gameConfig/gameConfig';
 import move from '../../actions/player.actions';
 import treasureActions from '../../actions/treasure.actions';
+import scoreActions from '../../actions/score.actions';
 import store from '../../index';
 
 class Player extends HTMLElement {
@@ -16,6 +17,7 @@ class Player extends HTMLElement {
       <div class="treasure"></div>
     `;
     this.treasureActions = treasureActions();
+    this.scoreActions = scoreActions();
     this.gridBoxes = {
       x: config.gridSize.x / config.playerSize,
       y: config.gridSize.y / config.playerSize,
@@ -91,7 +93,10 @@ class Player extends HTMLElement {
     const treasuresPosition = store.getState().treasureState;
     const collisionCondition = treasure => treasure.x === playerPosition.x && treasure.y === playerPosition.y;
     const doPlayerColideWithTreasure = treasuresPosition.some(treasure => collisionCondition(treasure));
-    if (doPlayerColideWithTreasure) store.dispatch(this.treasureActions.removeTreasure(playerPosition));
+    if (doPlayerColideWithTreasure) {
+      store.dispatch(this.scoreActions.increaseScore());
+      store.dispatch(this.treasureActions.removeTreasure(playerPosition));
+    }
   }
 }
 export default Player;

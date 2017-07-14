@@ -15,6 +15,8 @@ export default class Root extends HTMLElement {
     </style>
     <base-player>
     </base-player>
+    <base-score>
+    </base-score>
     `;
     // this.generateTreasureState = generateTreasureState;
     this.style.width = config.gridSize.x;

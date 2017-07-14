@@ -28,12 +28,11 @@ const initialState = (trees) => {
 };
 
 export default function treasure(state = [], action) {
-  const stateWithoutClearedTree = state.filter(tree => !(tree.x === action.payload.x && tree.y === action.payload.y));
   switch (action.type) {
     case GENERATE_TREASURES:
       return initialState(action.payload);
     case REMOVE_TREASURE:
-      return stateWithoutClearedTree;
+      return state.filter(tree => !(tree.x === action.payload.x && tree.y === action.payload.y));
     default:
       return state;
   }

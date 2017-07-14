@@ -7,15 +7,18 @@ import Root from './components/root/root';
 import Tree from './components/tree/tree';
 import Player from './components/player/player';
 import Treasure from './components/treasure/treasure';
+import Score from './components/score/score';
 
 import playerState from './reducers/player.reducer';
 import treeState from './reducers/tree.reducer';
 import treasureState from './reducers/treasure.reducer';
+import scoreState from './reducers/score.reducer';
 
 const rootReducer = combineReducers({
   playerState,
   treeState,
   treasureState,
+  scoreState,
 });
 const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 export default store;
@@ -23,3 +26,4 @@ customElements.define('root-component', Root);
 customElements.define('treasure-box', Treasure);
 customElements.define('base-player', Player);
 customElements.define('base-tree', Tree);
+customElements.define('base-score', Score);
