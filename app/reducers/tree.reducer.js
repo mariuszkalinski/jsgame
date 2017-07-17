@@ -6,7 +6,7 @@ const maxBoardSize = {
   x: config.gridSize.x / config.playerSize,
   y: config.gridSize.y / config.playerSize,
 };
-const maxTreesAmount = maxBoardSize.x * maxBoardSize.y;
+// const maxTreesAmount = maxBoardSize.x * maxBoardSize.y;
 const initialState = () => {
   let temporaryInitialState = [];
   while (temporaryInitialState.length < config.treesAmount) {
@@ -21,7 +21,6 @@ const initialState = () => {
       temporaryInitialState = [...temporaryInitialState, newCoords];
     }
   }
-  console.log(maxTreesAmount);
   return temporaryInitialState;
 };
 

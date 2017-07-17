@@ -1,3 +1,4 @@
+import Rx from 'rxjs';
 import styles from './enemy.scss';
 import config from '../../gameConfig/gameConfig';
 import store from '../../index';
@@ -19,7 +20,17 @@ export default class Enemy extends HTMLElement {
     this.id = this.getAttribute('id');
     this.setSize();
     this.setPosition();
-    this.changePosition();
+    this.emitPositionChange();
+    store.subscribe(this.mapToStore.bind(this));
+  }
+  mapToStore() {
+    Rx.Observable.from(store.getState().enemyState)
+      .filter(x => x.id === this.id)
+      .distinctUntilChanged()
+      .subscribe((x) => {
+        this.style.left = x.x * config.playerSize;
+        this.style.top = x.y * config.playerSize;
+      });
   }
   setSize() {
     this.style.width = config.playerSize;
@@ -31,12 +42,10 @@ export default class Enemy extends HTMLElement {
     this.style.left = leftDistance;
     this.style.top = rightDistance;
   }
-  changePosition() {
+  emitPositionChange() {
     setTimeout(() => {
       store.dispatch(this.enemyActions.moveEnemy(this.id));
-      this.style.left = Number.parseInt(this.style.left, 10) + 30;
-      this.style.top = Number.parseInt(this.style.top, 10) + 30;
-      // this.changePosition();
+      this.emitPositionChange();
     }, 1000);
   }
 }
