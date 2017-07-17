@@ -2,12 +2,14 @@ import styles from '../../styles.useable.scss';
 import store from '../../index';
 import config from '../../gameConfig/gameConfig';
 import treasureActions from '../../actions/treasure.actions';
+import enemyActions from '../../actions/enemy.actions';
 
 export default class Root extends HTMLElement {
   constructor() {
     super();
     this.store = store;
     this.treasureActions = treasureActions();
+    this.enemyActions = enemyActions();
     this.shadowRoots = this.attachShadow({ mode: 'open' });
     this.shadowRoots.innerHTML = `
     <style>
@@ -25,8 +27,9 @@ export default class Root extends HTMLElement {
     this.generateTrees();
     const trees = this.store.getState().treeState;
     store.dispatch(this.treasureActions.generateTreasures(trees));
-
+    store.dispatch(this.enemyActions.generateEnemies());
     this.generateTreasures();
+    this.generateEnemies();
     // this.unsubscribe();
 
     this.unsubscribe = this.store.subscribe(this.mapStateToThis.bind(this));
@@ -71,6 +74,16 @@ export default class Root extends HTMLElement {
       treasure.setAttribute('top', val.y);
       treasure.setAttribute('left', val.x);
       this.shadowRoots.appendChild(treasure);
+    }, this);
+  }
+  generateEnemies() {
+    const enemiesPositions = this.store.getState().enemyState;
+    enemiesPositions.forEach((val) => {
+      const enemy = document.createElement('enemy-mob');
+      enemy.setAttribute('top', val.y);
+      enemy.setAttribute('left', val.x);
+      enemy.id = val.id;
+      this.shadowRoots.appendChild(enemy);
     }, this);
   }
 }
