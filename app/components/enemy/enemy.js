@@ -44,7 +44,9 @@ export default class Enemy extends HTMLElement {
   }
   emitPositionChange() {
     setTimeout(() => {
-      store.dispatch(this.enemyActions.moveEnemy(this.id));
+      const treesState = store.getState().treeState;
+      const treasureState = store.getState().treasureState;
+      store.dispatch(this.enemyActions.moveEnemy(this.id, treesState, treasureState));
       this.emitPositionChange();
     }, 1000);
   }

@@ -5,9 +5,13 @@ export default function enemyActions() {
     type: GENERATE_ENEMIES,
     payload: value,
   });
-  const moveEnemy = value => ({
+  const moveEnemy = (id, trees, treasures) => ({
     type: MOVE_ENEMY,
-    payload: value,
+    payload: {
+      id,
+      trees,
+      treasures,
+    },
   });
   const removeEnemy = value => ({
     type: DESTROY_ENEMY,
