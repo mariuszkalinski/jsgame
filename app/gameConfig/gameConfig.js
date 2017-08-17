@@ -7,7 +7,7 @@ const config = {
   range: 1,
   treasuresAmount: 10,
   treesAmount: 200,
-  enemiesCount: 1,
+  enemiesCount: 20,
   treesTypes: [
     'birch',
     'oak',

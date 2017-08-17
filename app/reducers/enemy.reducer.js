@@ -38,20 +38,37 @@ const collisionSwitch = (position, object, param, oppositeParam) => {
       return 0;
   }
 };
-const move = (position, array, param) => {
-  if (array.length) {
-    if (array.some(x => x === 1) && array.some(x => x === -1)) {
-      return position[param];
-    } else if (array.some(x => x === 1)) {
-      return param === 'x' ?
-        position[param] + (Math.floor(Math.random() * 2)) : position[param] + (Math.floor(Math.random() * 2) - 1);
-    } else if (array.some(x => x === -1)) {
-      return param === 'x' ?
-        position[param] + (Math.floor(Math.random() * 2) - 1) : position[param] + (Math.floor(Math.random() * 2));
+const move = (position, arrayX, arrayY) => {
+  const newPosition = position;
+
+  const side = (Math.floor(Math.random() * 2));
+  if(side) {
+    if (arrayX.length) {
+      if (arrayX.some(x => x === 1) && arrayX.some(x => x === -1)) {
+        console.log('hej');
+      } else if (arrayX.some(x => x === 1)) {
+        newPosition.x = position.x + (Math.floor(Math.random() * 2));
+      } else if (arrayX.some(x => x === -1)) {
+        newPosition.x = position.x + (Math.floor(Math.random() * 2) - 1);
+      }
+    } else {
+      newPosition.x = position.x + (Math.floor(Math.random() * 3) - 1);
     }
   } else {
-    return position[param] + (Math.floor(Math.random() * 3) - 1);
+    if (arrayY.length) {
+      if (arrayY.some(x => x === 1) && arrayY.some(x => x === -1)) {
+        console.log('hej');
+      } else if (arrayY.some(x => x === 1)) {
+        newPosition.y = position.y + (Math.floor(Math.random() * 2));
+      } else if (arrayY.some(x => x === -1)) {
+        newPosition.y = position.y + (Math.floor(Math.random() * 2) - 1);
+      }
+    } else {
+      newPosition.y = position.y + (Math.floor(Math.random() * 3) - 1);
+    }
   }
+
+  return newPosition;
 };
 const enemyCollision = (position, trees) => {
   const arrayX = [];
@@ -60,12 +77,9 @@ const enemyCollision = (position, trees) => {
     if (collisionSwitch(position, tree, 'x', 'y')) arrayX.push(collisionSwitch(position, tree, 'x', 'y'));
     if (collisionSwitch(position, tree, 'y', 'x')) arrayY.push(collisionSwitch(position, tree, 'y', 'x'));
   });
-  return Object.assign({}, position, {
-    x: move(position, arrayX, 'x'),
-    y: move(position, arrayY, 'y'),
-  });
+  return Object.assign({}, position, move(position, arrayX, arrayY));
 };
-export default function player(state = [], action) {
+function enemyState(state = [], action) {
   switch (action.type) {
     case GENERATE_ENEMIES:
       return initialState();
@@ -83,3 +97,4 @@ export default function player(state = [], action) {
       return state;
   }
 }
+export { enemyState, enemyCollision };

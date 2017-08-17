@@ -14,7 +14,7 @@ import playerState from './reducers/player.reducer';
 import treeState from './reducers/tree.reducer';
 import treasureState from './reducers/treasure.reducer';
 import scoreState from './reducers/score.reducer';
-import enemyState from './reducers/enemy.reducer';
+import { enemyState } from './reducers/enemy.reducer';
 
 const rootReducer = combineReducers({
   playerState,
