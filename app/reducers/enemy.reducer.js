@@ -44,11 +44,9 @@ const move = (position, arrayX, arrayY) => {
   const side = (Math.floor(Math.random() * 2));
   if(side) {
     if (arrayX.length) {
-      if (arrayX.some(x => x === 1) && arrayX.some(x => x === -1)) {
-        console.log('hej');
-      } else if (arrayX.some(x => x === 1)) {
+      if (arrayX.some(x => x === 1) && arrayX.length === 1) {
         newPosition.x = position.x + (Math.floor(Math.random() * 2));
-      } else if (arrayX.some(x => x === -1)) {
+      } else if (arrayX.some(x => x === -1) && arrayX.length === 1) {
         newPosition.x = position.x + (Math.floor(Math.random() * 2) - 1);
       }
     } else {
@@ -56,11 +54,9 @@ const move = (position, arrayX, arrayY) => {
     }
   } else {
     if (arrayY.length) {
-      if (arrayY.some(x => x === 1) && arrayY.some(x => x === -1)) {
-        console.log('hej');
-      } else if (arrayY.some(x => x === 1)) {
+      if (arrayY.some(x => x === 1) && arrayY.length === 1) {
         newPosition.y = position.y + (Math.floor(Math.random() * 2));
-      } else if (arrayY.some(x => x === -1)) {
+      } else if (arrayY.some(x => x === -1) && arrayY.length === 1) {
         newPosition.y = position.y + (Math.floor(Math.random() * 2) - 1);
       }
     } else {
@@ -89,7 +85,9 @@ function enemyState(state = [], action) {
       const currentObject = state.filter(x => x.id === action.payload.id)[0];
       return state.map((record) => {
         if (record.id === action.payload.id) {
-          return enemyCollision(currentObject, action.payload.trees);
+          const nextMove = enemyCollision(currentObject, action.payload.trees);
+          const doesTryToCrossBorder = nextMove.x > 0 && nextMove.y > 0 && (nextMove.x < (maxBoardSize.x + 1)) && (nextMove.x < (maxBoardSize.y + 1));
+          return doesTryToCrossBorder ? nextMove : currentObject;
         }
         return record;
       });
